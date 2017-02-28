@@ -1,6 +1,6 @@
 <%-- 
-    Document   : registrado
-    Created on : Feb 24, 2017, 8:25:46 PM
+    Document   : mensaje
+    Created on : Feb 27, 2017, 10:53:42 PM
     Author     : gilis
 --%>
 
@@ -12,16 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Se ha registrado a:</h1>
-		<br />
-		<h2>${nombre}</h2>
-		<br />
-		<h2>${carrera}</h2>
-		<br />
-		<h2>${fechanac}</h2>
-		<br />
-		<h2>${correo}</h2>
-		<br />
-		<h2>qwerty</h2>
+        <h1>${mensaje}</h1>
     </body>
 </html>

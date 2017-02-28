@@ -5,6 +5,10 @@
  */
 package Controlador;
 
+import Mapeo.Persona;
+import Mapeo.User;
+import Modelo.PersonaDAO;
+import Modelo.UserDAO;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -46,8 +50,18 @@ public class Controlador {
 		String correo = request.getParameter ("correo");
 		//input contraseña
 		String pass = request.getParameter ("pass");
+		UserDAO u = new UserDAO ();
+		User user = u.getUser (correo, pass);
+		if (user == null) {
+			model.addAttribute ("mensaje", "Error de contraseña.");
+			return new ModelAndView ("mensaje", model);
+		}
 		model.addAttribute ("correo", correo);
 		model.addAttribute ("pass", pass);
+		Persona p = user.getPersona ();
+		model.addAttribute ("nombre", p.getNombre ());
+		model.addAttribute ("fechanac", p.getFechaNac ());
+		model.addAttribute ("carrera", p.getCarrera ());
 		//sesion.jsp
 		return new ModelAndView ("sesion", model);
 	}
@@ -59,20 +73,35 @@ public class Controlador {
 	
 	@RequestMapping(value="/registrar", method = RequestMethod.GET)
 	public ModelAndView registrar (ModelMap model, HttpServletRequest request) {
+		String correo = request.getParameter ("correo");
+		String pass = request.getParameter ("pass");
+		UserDAO u = new UserDAO ();
+		if (u.getUser (correo,pass) != null) {
+			model.addAttribute ("mensaje", "El usuario con correo "
+					+ correo + " ya ha sido registrado.");
+			return new ModelAndView ("mensaje", model);
+		}
 		String nombre = request.getParameter ("nombre");
 		String carrera = request.getParameter ("carrera");
 		String dd = request.getParameter ("dd");
 		String mm = request.getParameter ("mm");
 		String yyyy = request.getParameter ("yyyy");
-		String correo = request.getParameter ("correo");
-		String pass = request.getParameter ("pass");
+		String fechanac = yyyy+"-"+mm+"-"+dd;
 		model.addAttribute ("nombre",nombre);
 		model.addAttribute ("carrera",carrera);
-		model.addAttribute ("dd",dd);
-		model.addAttribute ("mm",mm);
-		model.addAttribute ("yyyy",yyyy);
+		model.addAttribute ("fechanac",fechanac);
 		model.addAttribute ("correo",correo);
 		model.addAttribute ("pass",pass);
+		Persona p = new Persona ();
+		p.setNombre (nombre);
+		p.setCarrera (carrera);
+		p.setFechaNac (fechanac);
+		User user = new User ();
+		user.setPersona (p);
+		user.setCorreo (correo);
+		user.setPassword (pass);
+		(new PersonaDAO ()).guardar (p);
+		u.guardar (user);
 		return new ModelAndView ("registrado", model);
 	}
 }

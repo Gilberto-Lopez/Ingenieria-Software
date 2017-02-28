@@ -12,10 +12,18 @@
         <title>Info</title>
     </head>
     <body>
-		<h1>${correo}!</h1>
+		<h1>Su usario es:</h1>
 		<br />
+		<h2>${correo}!</h2>
 		<br />
+		<h2>${nombre}</h2>
 		<br />
-		<h1>qwerty!</h1>
+		<h2>${carrera}</h2>
+		<br />
+		<h2>${dd}-${mm}-${yyyy}</h2>
+		<br />
+		<h2>${correo}</h2>
+		<br />
+		<h2>qwerty!</h2>
     </body>
 </html>
