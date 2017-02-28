@@ -17,13 +17,13 @@
         p:url="${jdbc.url}"
         p:username="${jdbc.username}"
         p:password="${jdbc.password}"/>
-    <!--
+    
     <bean id="hibernate4AnnotatedSessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="annotatedClasses">
             <list>
-                <value>MapeoBD.Persona</value>
-                <value>MapeoBD.Usuario</value>
+                <value>Mapeo.Persona</value>
+                <value>Mapeo.User</value>
             </list>
         </property>   
         <property name="hibernateProperties">
@@ -34,17 +34,19 @@
             </props>
         </property>
     </bean>
-    
+    <!--
       Se agrega para poder inyectarlo a los Controladores, revisa EjemploController.java
           en el paquete controlador, se esta haciendo uso de @Autowiring
+	-->
     <bean id="PersonaDAO" class="Modelo.PersonaDAO"
         p:sessionFactory-ref="hibernate4AnnotatedSessionFactory"
     />
     
-    <bean id="UsuarioDAO" class="Modelo.UsuarioDAO"
+    <bean id="UserDAO" class="Modelo.UserDAO"
         p:sessionFactory-ref="hibernate4AnnotatedSessionFactory"
     />
-    
+
+    <!--
     <bean id="SalonDAOImpl" class="Modelo.SalonDAOImpl"
         p:sessionFactory-ref="hibernate4AnnotatedSessionFactory"
     />

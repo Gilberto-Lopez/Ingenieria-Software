@@ -14,7 +14,7 @@
     <body>
         <h1>Inicia sesión</h1>
 		<br />
-		<form method="GET" action="/Clase1/registrar">
+		<form method="POST" action="/Clase1/registrar">
 			<input id="nombre" name="nombre" type="text" placeholder="Nombre" />
 			<br />
 			<input id="carrera" name="carrera" type="text" placeholder="Carrera" />

@@ -10,6 +10,7 @@ import Mapeo.User;
 import Modelo.PersonaDAO;
 import Modelo.UserDAO;
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,11 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller 
 public class Controlador {
+	
+	@Autowired
+	private UserDAO user_db;
+	@Autowired
+	private PersonaDAO persona_db;
     
     @RequestMapping(value="/")
     public String inicio(){
@@ -50,8 +56,7 @@ public class Controlador {
 		String correo = request.getParameter ("correo");
 		//input contraseña
 		String pass = request.getParameter ("pass");
-		UserDAO u = new UserDAO ();
-		User user = u.getUser (correo, pass);
+		User user = user_db.getUser (correo, pass);
 		if (user == null) {
 			model.addAttribute ("mensaje", "Error de contraseña.");
 			return new ModelAndView ("mensaje", model);
@@ -71,12 +76,11 @@ public class Controlador {
 		return new ModelAndView ("registro", model);
 	}
 	
-	@RequestMapping(value="/registrar", method = RequestMethod.GET)
+	@RequestMapping(value="/registrar", method = RequestMethod.POST)
 	public ModelAndView registrar (ModelMap model, HttpServletRequest request) {
 		String correo = request.getParameter ("correo");
 		String pass = request.getParameter ("pass");
-		UserDAO u = new UserDAO ();
-		if (u.getUser (correo,pass) != null) {
+		if (user_db.getUser (correo,pass) != null) {
 			model.addAttribute ("mensaje", "El usuario con correo "
 					+ correo + " ya ha sido registrado.");
 			return new ModelAndView ("mensaje", model);
@@ -100,8 +104,8 @@ public class Controlador {
 		user.setPersona (p);
 		user.setCorreo (correo);
 		user.setPassword (pass);
-		(new PersonaDAO ()).guardar (p);
-		u.guardar (user);
+		persona_db.guardar (p);
+		user_db.guardar (user);
 		return new ModelAndView ("registrado", model);
 	}
 }
