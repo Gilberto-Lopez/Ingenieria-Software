@@ -45,7 +45,7 @@ public class PersonaDAO {
 		Transaction t = null;
 		try {
 			t = session.beginTransaction ();
-			String q = "FROM persona WHERE nombre = :nombre";
+			String q = "FROM Persona WHERE nombre = :nombre";
 			Query query = session.createQuery (q);
 			query.setParameter ("nombre", nombre);
 			persona = (Persona) query.uniqueResult ();

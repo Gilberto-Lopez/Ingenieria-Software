@@ -44,7 +44,7 @@ public class UserDAO {
 		Transaction t = null;
 		try {
 			t = session.beginTransaction ();
-			String q = "FROM user WHERE correo = :correo AND password = :password";
+			String q = "FROM User WHERE correo = :correo AND password = :password";
 			Query query = session.createQuery (q);
 			query.setParameter ("correo", correo);
 			query.setParameter ("password", password);

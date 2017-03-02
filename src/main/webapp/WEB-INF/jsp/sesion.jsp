@@ -20,7 +20,7 @@
 		<br />
 		<h2>${carrera}</h2>
 		<br />
-		<h2>${dd}-${mm}-${yyyy}</h2>
+		<h2>${fechanac}</h2>
 		<br />
 		<h2>${correo}</h2>
 		<br />
