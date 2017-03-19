@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- CSS incrustado para los mapas, ocupan el 100% del alto de pantalla. -->
+    <style type="text/css">
+      html, body { height: 100%; margin: 0; padding: 0; }
+      #map { height: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script type="text/javascript">
+
+// Script de JavaScript para creación de mapas
+// usando la API de Google Maps.
+// El mapa
+var map;
+// El marcador
+var marker;
+// La ventana de información.
+var info;
+// La posición del centro del mapa, el marcador
+// y la ventana de información.
+var pos = {lat: 34.141432, lng: -90.052629};
+
+
+/* Inicializa la ventana de información INFO sobre
+ * el marcador MARKER, cuya posición será el centro
+ * de MAP. */
+function initInfoWindow () {
+  info = new google.maps.InfoWindow ({
+    position: pos,
+    content: 'come down and play'
+  });
+}
+
+/* Inicializa el marcador MARKER sobre el mapa MAP. */
+function initMarker () {
+  marker = new google.maps.Marker ({
+    // El mapa en el que aparece el marcador.
+    map: map,
+    // La posición en el mapa
+    // Es de tipo LatLng (google.maps.LatLng)
+    // un diccionario (google.maps.LatLngLiteral)
+    // también funciona.
+    position: pos
+  });
+  // Listener para el evento 'click' del marcador.
+  // Se abre la ventana de información sobre el mapa MAP.
+  // google.maps.Marker extiende google.maps.MVCObject
+  // https://developers.google.com/maps/documentation/javascript/3.exp/reference#MVCObject
+  marker.addListener('click', function () {
+    info.open (map);
+  });
+}
+
+/* Inicializa el mapa MAP.
+ * Inicializa INFO y MARKER. */
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    // diccionario de tipo google.maps.MapOptions
+    // con las opciones para el mapa.
+    // El centro es de tipo LatLng (google.maps.LatLng)
+    center: pos,
+    zoom: 21,
+    // mapTypeId recibe un MapTypeId.
+    mapTypeId: google.maps.MapTypeId.SATELLITE // equivalente: 'satellite'.
+  });
+  initInfoWindow ();
+  initMarker ();
+}
+
+    </script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=initMap">
+    </script>
+  </body>
+</html>
