@@ -13,9 +13,9 @@
 
 // Script de JavaScript para creación de mapas
 // usando la API de Google Maps.
-// El mapa
+// El mapa.
 var map;
-// El marcador
+// El marcador.
 var marker;
 // La ventana de información.
 var info;
@@ -24,9 +24,8 @@ var info;
 var pos = {lat: 34.141432, lng: -90.052629};
 
 
-/* Inicializa la ventana de información INFO sobre
- * el marcador MARKER, cuya posición será el centro
- * de MAP. */
+/* Inicializa la ventana de información INFO en la
+ * posición POS, con el mensaje 'come down and play'. */
 function initInfoWindow () {
   info = new google.maps.InfoWindow ({
     position: pos,
@@ -39,10 +38,9 @@ function initMarker () {
   marker = new google.maps.Marker ({
     // El mapa en el que aparece el marcador.
     map: map,
-    // La posición en el mapa
-    // Es de tipo LatLng (google.maps.LatLng)
-    // un diccionario (google.maps.LatLngLiteral)
-    // también funciona.
+    // La posición en el mapa.
+    // Es de tipo google.maps.LatLng
+    // o google.maps.LatLngLiteral
     position: pos
   });
   // Listener para el evento 'click' del marcador.
@@ -54,16 +52,19 @@ function initMarker () {
   });
 }
 
-/* Inicializa el mapa MAP.
+/* Inicializa el mapa MAP centrado en POS, con un
+ * zoom inicial de 21 y tipo SATELLITE.
  * Inicializa INFO y MARKER. */
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
-    // diccionario de tipo google.maps.MapOptions
+    // objeto de tipo google.maps.MapOptions
     // con las opciones para el mapa.
-    // El centro es de tipo LatLng (google.maps.LatLng)
+    // El centro es de tipo google.maps.LatLng o google.maps.LatLngLiteral.
     center: pos,
     zoom: 21,
-    // mapTypeId recibe un MapTypeId.
+    // mapTypeId recibe un MapTypeId
+	// o equivalentemente, el nombre de la constante.
+	// https://developers.google.com/maps/documentation/javascript/3.exp/reference#MapTypeId
     mapTypeId: google.maps.MapTypeId.SATELLITE // equivalente: 'satellite'.
   });
   initInfoWindow ();
